@@ -313,6 +313,7 @@
     var editalTxt = edital && edital.selectedIndex>0 ? edital.options[edital.selectedIndex].text : '';
     var cargoTxt = cargo && cargo.value ? cargo.value : '';
     d.VAGA = cargoTxt;
+    d.__edital_label = editalTxt;
     d.__vaga_label = cargoTxt + (editalTxt ? ' — ' + editalTxt : '');
     d.UF_PROVA = uf ? uf.value : '';
     d.MUNICIPIO_PROVA = polo ? polo.value : '';

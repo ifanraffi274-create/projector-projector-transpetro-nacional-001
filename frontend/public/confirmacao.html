@@ -57,8 +57,8 @@
   <div class="conf-section">
     <div class="conf-head">Opções de prova</div>
     <div class="conf-grid">
-      <div class="conf-item conf-full"><span class="conf-label">Cargo (Vaga)</span><span class="conf-val" id="c-vaga">—</span></div>
-      <div class="conf-item"><span class="conf-label">Polo de trabalho</span><span class="conf-val">NACIONAL / NACIONAL</span></div>
+      <div class="conf-item conf-full"><span class="conf-label">Edital selecionado</span><span class="conf-val" id="c-edital">—</span></div>
+      <div class="conf-item conf-full"><span class="conf-label">Cargo escolhido</span><span class="conf-val" id="c-cargo-nome">—</span></div>
       <div class="conf-item"><span class="conf-label">Polo de prova (UF)</span><span class="conf-val" id="c-uf-prova">—</span></div>
       <div class="conf-item"><span class="conf-label">Polo de prova</span><span class="conf-val" id="c-municipio-prova">—</span></div>
     </div>
@@ -154,7 +154,8 @@
   set('c-data', d.DATA_NASCIMENTO);
   var sexoMap = {'0':'MASCULINO','1':'FEMININO'};
   set('c-sexo', sexoMap[d.SEXO] || '');
-  set('c-vaga', d.__vaga_label || d.VAGA || '');
+  set('c-edital', d.__edital_label || '');
+  set('c-cargo-nome', d.VAGA || '');
         set('c-uf-prova', ({'BA':'Bahia'}[d.UF_PROVA] || d.UF_PROVA || ''));
         set('c-municipio-prova', d.MUNICIPIO_PROVA || '');
         // (c-lotacao removed)
