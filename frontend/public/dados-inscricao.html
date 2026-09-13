@@ -245,7 +245,18 @@
 </script>
 <script id="polo-map">
 (function(){
-  var CAPITAIS={AC:"Rio Branco",AL:"Maceió",AP:"Macapá",AM:"Manaus",BA:"Salvador",CE:"Fortaleza",DF:"Brasília",ES:"Vitória",GO:"Goiânia",MA:"São Luís",MT:"Cuiabá",MS:"Campo Grande",MG:"Belo Horizonte",PA:"Belém",PB:"João Pessoa",PR:"Curitiba",PE:"Recife",PI:"Teresina",RJ:"Rio de Janeiro",RN:"Natal",RS:"Porto Alegre",RO:"Porto Velho",RR:"Boa Vista",SC:"Florianópolis",SP:"São Paulo",SE:"Aracaju",TO:"Palmas"};
+  // Polos de prova por UF (cidade em maiúsculas). Estados com mais de um local listam todos.
+  var POLOS={
+    AC:["RIO BRANCO"],AL:["MACEIÓ"],AP:["MACAPÁ"],AM:["MANAUS"],BA:["SALVADOR"],
+    CE:["FORTALEZA"],DF:["BRASÍLIA"],ES:["VITÓRIA"],
+    GO:["GOIÂNIA","SENADOR CANEDO"],
+    MA:["SÃO LUÍS"],MT:["CUIABÁ"],MS:["CAMPO GRANDE"],MG:["BELO HORIZONTE"],
+    PA:["BELÉM"],PB:["JOÃO PESSOA"],PR:["CURITIBA"],PE:["RECIFE"],PI:["TERESINA"],
+    RJ:["NITERÓI","NOVA IGUAÇU","RIO DE JANEIRO"],
+    RN:["NATAL"],RS:["PORTO ALEGRE"],RO:["PORTO VELHO"],RR:["BOA VISTA"],SC:["FLORIANÓPOLIS"],
+    SP:["SANTOS","SÃO PAULO","SÃO SEBASTIÃO"],
+    SE:["ARACAJU"],TO:["PALMAS"]
+  };
   function fill(sel,items,placeholder){
     sel.innerHTML='';
     var o0=document.createElement('option');o0.value='';o0.textContent=placeholder;sel.appendChild(o0);
@@ -259,8 +270,8 @@
       else { fill(pt,[],'Selecione'); pt.disabled=true; }
     }); }
     if(uf&&pp){ uf.addEventListener('change',function(){
-      var cap=CAPITAIS[uf.value];
-      if(cap){ fill(pp,[cap+' / '+uf.value],'Selecione'); pp.disabled=false; }
+      var list=POLOS[uf.value]||[];
+      if(list.length){ fill(pp,list,'Selecione'); pp.disabled=false; }
       else { fill(pp,[],'Selecione'); pp.disabled=true; }
     }); }
   });
