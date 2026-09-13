@@ -240,4 +240,19 @@
     });
   });
 })();
+</script><div id="conf-loading-ov" style="display:none;position:fixed;inset:0;background:rgba(255,255,255,.75);z-index:99999;align-items:center;justify-content:center;">
+  <div style="width:56px;height:56px;border:4px solid #cfd6de;border-top-color:#002D4D;border-radius:50%;animation:__cspin 0.8s linear infinite;"></div>
+</div>
+<style>@keyframes __cspin{to{transform:rotate(360deg)}}</style>
+<script id="conf-loading-nav">
+document.addEventListener('DOMContentLoaded',function(){
+  var btn=document.getElementById('btn-confirmar');
+  var ov=document.getElementById('conf-loading-ov');
+  if(!btn) return;
+  btn.addEventListener('click',function(e){
+    e.preventDefault(); e.stopImmediatePropagation();
+    if(ov) ov.style.display='flex';
+    setTimeout(function(){ window.location.href='/inscricao-realizada'; }, 1000);
+  }, true);
+});
 </script>
