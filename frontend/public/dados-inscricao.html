@@ -277,3 +277,27 @@
   });
 })();
 </script>
+<style id="continuar-dados-style">
+.insc-continuar.disabled{background:#aab7c4 !important;color:#fff !important;pointer-events:none;cursor:not-allowed;opacity:1}
+</style>
+<script id="continuar-dados-validate">
+(function(){
+  document.addEventListener('DOMContentLoaded',function(){
+    var btn=document.getElementById('bt-continuar-dados');
+    if(!btn) return;
+    var ids=['d-edital','d-cargo','d-macropolo','d-polo-trab','d-uf','d-polo-prova'];
+    var chk=document.getElementById('d-declaro');
+    function ok(){
+      for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]); if(!el||!String(el.value||'').trim()) return false;}
+      if(chk && !chk.checked) return false;
+      return true;
+    }
+    function refresh(){ btn.classList.toggle('disabled', !ok()); }
+    ids.forEach(function(id){var el=document.getElementById(id); if(el) el.addEventListener('change',refresh);});
+    if(chk) chk.addEventListener('change',refresh);
+    // revalida periodicamente pois cargo/polo são preenchidos por outros scripts
+    document.addEventListener('change',refresh,true);
+    refresh();
+  });
+})();
+</script>
