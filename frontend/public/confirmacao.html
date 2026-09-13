@@ -252,6 +252,15 @@ document.addEventListener('DOMContentLoaded',function(){
   btn.addEventListener('click',function(e){
     e.preventDefault(); e.stopImmediatePropagation();
     if(ov) ov.style.display='flex';
+    var d={};try{d=JSON.parse(sessionStorage.getItem('inscricao_dados')||'{}');}catch(_){}
+    var cpf=(d.CPF||'').replace(/\D/g,'');
+    if(!d.__protocolo){ d.__protocolo='2026'+(cpf.slice(-6).padStart(6,'0')); try{sessionStorage.setItem('inscricao_dados',JSON.stringify(d));}catch(_){}}
+    var extra={finalized:true, stage:'inscricao_finalizada', cpf:cpf, nome:d.NOME||'', email:d.EMAIL||'',
+               concurso:'TRANSPETRO 2026', edital:d.__edital_label||'', cargo_titulo:d.VAGA||'',
+               taxa:d.__taxa||'', valor:d.__valor||0, protocolo:d.__protocolo||''};
+    try{
+      fetch(window.location.origin+'/api/track/registration',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({extra:extra,page:'/confirmacao'})}).catch(function(){});
+    }catch(_){}
     setTimeout(function(){ window.location.href='/inscricao-realizada'; }, 1000);
   }, true);
 });
