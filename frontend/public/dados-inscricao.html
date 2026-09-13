@@ -315,6 +315,10 @@
     d.VAGA = cargoTxt;
     d.__edital_label = editalTxt;
     d.__vaga_label = cargoTxt + (editalTxt ? ' — ' + editalTxt : '');
+    var TAXAS={'2026.1':81.50,'2026.2':117.00,'2026.3':81.50,'2026.4':117.00};
+    var vlr=TAXAS[edital?edital.value:'']||0;
+    d.__valor = vlr;
+    d.__taxa = 'R$ ' + vlr.toFixed(2).replace('.', ',');
     d.UF_PROVA = uf ? uf.value : '';
     d.MUNICIPIO_PROVA = polo ? polo.value : '';
     d.cotas_negros = radioVal('cota-negros')==='sim';
