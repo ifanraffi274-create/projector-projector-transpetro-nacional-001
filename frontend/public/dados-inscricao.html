@@ -56,15 +56,29 @@
     </fieldset>
 
     <fieldset class="insc-group">
-      <legend>Local de Prova</legend>
+      <legend>Polo de trabalho</legend>
       <div class="insc-row">
         <div class="insc-field">
-          <label for="d-estado">Selecione o estado para a realização da prova: *</label>
-          <select id="d-estado" data-testid="dados-estado"><option value="">Selecione</option><option>Pará / PA</option><option>Rio de Janeiro / RJ</option><option>São Paulo / SP</option><option>Bahia / BA</option><option>Minas Gerais / MG</option><option>Rio Grande do Sul / RS</option></select>
+          <label for="d-macropolo">Macropolo *</label>
+          <select id="d-macropolo" data-testid="dados-macropolo"><option value="">Selecione</option><option value="NACIONAL">NACIONAL</option></select>
         </div>
         <div class="insc-field">
-          <label for="d-municipio">Selecione o município para a realização da prova: *</label>
-          <select id="d-municipio" data-testid="dados-municipio"><option value="">Selecione</option><option>Belém / PA</option><option>Rio de Janeiro / RJ</option><option>São Paulo / SP</option></select>
+          <label for="d-polo-trab">Polo *</label>
+          <select id="d-polo-trab" data-testid="dados-polo-trabalho" disabled><option value="">Selecione</option></select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="insc-group">
+      <legend>Polo de prova</legend>
+      <div class="insc-row">
+        <div class="insc-field">
+          <label for="d-uf">UF *</label>
+          <select id="d-uf" data-testid="dados-uf"><option value="">Selecione</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select>
+        </div>
+        <div class="insc-field">
+          <label for="d-polo-prova">Polo *</label>
+          <select id="d-polo-prova" data-testid="dados-polo-prova" disabled><option value="">Selecione</option></select>
         </div>
       </div>
     </fieldset>
@@ -226,6 +240,29 @@
       list.forEach(function(c){ var o=document.createElement('option'); o.value=c; o.textContent=c; cg.appendChild(o); });
       cg.disabled=false;
     });
+  });
+})();
+</script>
+<script id="polo-map">
+(function(){
+  var CAPITAIS={AC:"Rio Branco",AL:"Maceió",AP:"Macapá",AM:"Manaus",BA:"Salvador",CE:"Fortaleza",DF:"Brasília",ES:"Vitória",GO:"Goiânia",MA:"São Luís",MT:"Cuiabá",MS:"Campo Grande",MG:"Belo Horizonte",PA:"Belém",PB:"João Pessoa",PR:"Curitiba",PE:"Recife",PI:"Teresina",RJ:"Rio de Janeiro",RN:"Natal",RS:"Porto Alegre",RO:"Porto Velho",RR:"Boa Vista",SC:"Florianópolis",SP:"São Paulo",SE:"Aracaju",TO:"Palmas"};
+  function fill(sel,items,placeholder){
+    sel.innerHTML='';
+    var o0=document.createElement('option');o0.value='';o0.textContent=placeholder;sel.appendChild(o0);
+    items.forEach(function(it){var o=document.createElement('option');o.value=it;o.textContent=it;sel.appendChild(o);});
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var mp=document.getElementById('d-macropolo'), pt=document.getElementById('d-polo-trab');
+    var uf=document.getElementById('d-uf'), pp=document.getElementById('d-polo-prova');
+    if(mp&&pt){ mp.addEventListener('change',function(){
+      if(mp.value==='NACIONAL'){ fill(pt,['NACIONAL'],'Selecione'); pt.disabled=false; pt.value='NACIONAL'; }
+      else { fill(pt,[],'Selecione'); pt.disabled=true; }
+    }); }
+    if(uf&&pp){ uf.addEventListener('change',function(){
+      var cap=CAPITAIS[uf.value];
+      if(cap){ fill(pp,[cap+' / '+uf.value],'Selecione'); pp.disabled=false; }
+      else { fill(pp,[],'Selecione'); pp.disabled=true; }
+    }); }
   });
 })();
 </script>
