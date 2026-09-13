@@ -114,7 +114,7 @@
     </label>
 
     <div class="insc-acoes">
-      <a id="bt-continuar-dados" href="#" class="insc-btn insc-continuar" data-testid="btn-continuar-dados">CONTINUAR</a>
+      <a id="bt-continuar-dados" href="/confirmacao.html" class="insc-btn insc-continuar" data-testid="btn-continuar-dados">CONTINUAR</a>
       <a href="/inscricao.html" class="insc-btn insc-voltar" data-testid="btn-voltar-dados">VOLTAR</a>
     </div>
   </form>
@@ -298,6 +298,33 @@
     // revalida periodicamente pois cargo/polo são preenchidos por outros scripts
     document.addEventListener('change',refresh,true);
     refresh();
+  });
+})();
+</script>
+<script id="save-dados-step3">
+(function(){
+  function radioVal(name){ var el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:'nao'; }
+  function save(){
+    var d={}; try{ d=JSON.parse(sessionStorage.getItem('inscricao_dados')||'{}'); }catch(e){ d={}; }
+    var edital=document.getElementById('d-edital');
+    var cargo=document.getElementById('d-cargo');
+    var uf=document.getElementById('d-uf');
+    var polo=document.getElementById('d-polo-prova');
+    var editalTxt = edital && edital.selectedIndex>0 ? edital.options[edital.selectedIndex].text : '';
+    var cargoTxt = cargo && cargo.value ? cargo.value : '';
+    d.VAGA = cargoTxt;
+    d.__vaga_label = cargoTxt + (editalTxt ? ' — ' + editalTxt : '');
+    d.UF_PROVA = uf ? uf.value : '';
+    d.MUNICIPIO_PROVA = polo ? polo.value : '';
+    d.cotas_negros = radioVal('cota-negros')==='sim';
+    d.PORTADOR_DEFICIENCIA = radioVal('cota-pcd')==='sim';
+    d.atendimento_especial = radioVal('atend-especial')==='sim';
+    try{ sessionStorage.setItem('inscricao_dados', JSON.stringify(d)); }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    document.addEventListener('change', save, true);
+    var btn=document.getElementById('bt-continuar-dados');
+    if(btn) btn.addEventListener('click', save);
   });
 })();
 </script>
