@@ -263,7 +263,7 @@
   var storedValor = parseFloat(d.__valor);
   if(!storedValor || storedValor <= 0){ storedValor = 180; }
   var vagaInfo = {
-    titulo: d.__vaga_label || d.__cargo_titulo || '',
+    titulo: d.VAGA || d.__cargo_titulo || d.__vaga_label || '',
     valor: storedValor,
     taxa: d.__taxa || ('R$ ' + storedValor.toFixed(2).replace('.', ',')),
     codigo: d.__cargo_codigo || d.VAGA || ''
