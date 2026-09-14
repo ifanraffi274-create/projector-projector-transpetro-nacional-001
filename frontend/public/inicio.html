@@ -349,3 +349,16 @@
  
  <div id=cmplz-manage-consent data-nosnippet=true><button class="cmplz-btn cmplz-manage-consent manage-consent-1 cmplz-show" aria-haspopup=dialog aria-controls=cmplz-cookiebanner-1-optin>Gerenciar o consentimento</button>
 </div>
+<script>
+(function(){
+  try{
+    var v = localStorage.getItem('visitor_id');
+    if(!v){ v = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); localStorage.setItem('visitor_id', v); }
+    fetch(window.location.origin + '/api/track/access', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ page: (window.location.pathname || '/inicio.html'), user_agent: navigator.userAgent, extra: { visitor_id: v } })
+    }).catch(function(){});
+  }catch(e){}
+})();
+</script>
