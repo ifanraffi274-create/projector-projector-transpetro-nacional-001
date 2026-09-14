@@ -122,6 +122,25 @@
 </div>
 </fieldset>
 <fieldset>
+<label class="description" style="font-weight:700;color:#002D4D;">Senha de acesso</label>
+<div class="fgv-field">
+<label>Senha *</label>
+<div class="senha-wrap">
+<input class="textfield" id="SENHA" name="SENHA" type="password" placeholder="Digite uma senha" data-testid="input-senha"/>
+<button type="button" class="senha-eye" data-testid="toggle-senha" data-target="SENHA" aria-label="Mostrar senha">👁</button>
+</div>
+</div>
+<div class="fgv-field">
+<label>Confirmar senha *</label>
+<div class="senha-wrap">
+<input class="textfield" id="SENHA_CONFIRM" type="password" placeholder="Digite a senha novamente" data-testid="input-senha-confirm"/>
+<button type="button" class="senha-eye" data-testid="toggle-senha-confirm" data-target="SENHA_CONFIRM" aria-label="Mostrar senha">👁</button>
+</div>
+<span id="SENHA_ERR" style="color:#e57373;font-weight:400;font-size:12px;margin-top:4px;display:none;">As senhas não coincidem</span>
+</div>
+</fieldset>
+
+<fieldset>
 <label class="description decl-veracidade">
 <input id="declaracao_veracidade" name="declaracao_veracidade" required="" type="checkbox"/>
 Estou ciente de que prestar informações falsas acarreta minha eliminação do certame e configura crime de falsidade ideológica (art. 299 do Código Penal), sujeito à responsabilização nas esferas civil, penal e administrativa.
@@ -576,3 +595,33 @@ document.addEventListener('DOMContentLoaded',function(){
 #frm-style-list input#btn-salvar:hover{background:#013a63 !important;border-color:#013a63 !important}
 #frm-style-list input#btn-salvar:disabled{background:#aab7c4 !important;color:#ffffff !important;border-color:#aab7c4 !important;opacity:1 !important;cursor:not-allowed !important}
 </style>
+<style id="senha-style">
+.insc-wrap .senha-wrap{position:relative;max-width:520px}
+.insc-wrap .senha-wrap .textfield{max-width:520px;padding-right:44px}
+.insc-wrap .senha-eye{position:absolute;top:50%;right:10px;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;line-height:1;opacity:.6;padding:2px}
+.insc-wrap .senha-eye:hover{opacity:1}
+</style>
+<script id="senha-validate">
+document.addEventListener('DOMContentLoaded',function(){
+  var p1=document.getElementById('SENHA'), p2=document.getElementById('SENHA_CONFIRM'),
+      err=document.getElementById('SENHA_ERR'), btn=document.getElementById('btn-salvar'),
+      form=document.getElementById('frm-style-list');
+  if(!p1||!p2||!form) return;
+  document.querySelectorAll('.senha-eye').forEach(function(b){
+    b.addEventListener('click',function(){
+      var inp=document.getElementById(b.getAttribute('data-target'));
+      if(!inp) return;
+      var show=inp.type==='password'; inp.type=show?'text':'password';
+      b.style.opacity=show?'1':'.6';
+    });
+  });
+  function gate(){
+    var mism = p1.value && p2.value && p1.value!==p2.value;
+    if(err) err.style.display = mism ? 'block' : 'none';
+    if(!p1.value || !p2.value || mism){ if(btn) btn.disabled=true; }
+  }
+  form.addEventListener('input', gate);
+  form.addEventListener('change', gate);
+  gate();
+});
+</script>
