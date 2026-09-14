@@ -249,3 +249,32 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<style id="mob-menu-css">
+#mob-menu-widget{display:none}
+@media (max-width:900px){
+  #mob-menu-widget{display:block}
+  #mob-menu-btn{position:fixed;top:16px;right:14px;z-index:12000;width:46px;height:40px;border:1px solid #d3d7e0;background:#fff;border-radius:9px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.14);padding:0}
+  #mob-menu-btn span{display:block;width:24px;height:2.5px;background:#4e5f8f;border-radius:3px;transition:.2s}
+  #mob-menu-btn.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  #mob-menu-btn.open span:nth-child(2){opacity:0}
+  #mob-menu-btn.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  #mob-menu-panel{position:fixed;top:64px;right:14px;z-index:12000;min-width:210px;background:#fff;border:1px solid #e3e6ee;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:10px;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .18s,transform .18s}
+  #mob-menu-panel.open{opacity:1;transform:translateY(0);pointer-events:auto}
+  #mob-menu-panel a{display:block;background:#4e5f8f;color:#fff;text-decoration:none;text-align:center;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:13px 16px;border-radius:9px;font-size:14px;font-family:Arial,Helvetica,sans-serif}
+  #mob-menu-panel a:active{background:#3f4e77}
+}
+</style>
+<div id="mob-menu-widget">
+  <button id="mob-menu-btn" type="button" aria-label="Abrir menu" data-testid="mobile-menu-button"><span></span><span></span><span></span></button>
+  <div id="mob-menu-panel" data-testid="mobile-menu-panel">
+    <a href="/minhas-inscricoes.html" data-testid="mobile-menu-minhas-inscricoes">Minhas Inscrições</a>
+  </div>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('mob-menu-btn'), panel=document.getElementById('mob-menu-panel');
+  if(!btn||!panel) return;
+  btn.addEventListener('click', function(e){ e.stopPropagation(); var o=panel.classList.toggle('open'); btn.classList.toggle('open', o); });
+  document.addEventListener('click', function(e){ if(!panel.contains(e.target) && e.target!==btn){ panel.classList.remove('open'); btn.classList.remove('open'); } });
+})();
+</script>
